@@ -1,0 +1,34 @@
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+}
+
+#chat_history {
+    border: 1px solid #ccc;
+    padding: 10px;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+p {
+    margin: 5px 0;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    margin-right: 10px;
+    font-size: 16px;
+}
+
+button {
+    padding: 8px;
+    font-size: 16px;
+}
+
+#waiting_message {
+    display: none;
+    margin-top: 10px;
+}
