@@ -1,0 +1,67 @@
+This file that provides detailed steps for deploying your Fitbot application on Azure and setting up CI/CD pipelines using Azure DevOps
+
+## Step 1: Set Up Your Fitbot Application Locally
+
+1. Clone the Fitbot repository:
+
+   git clone <github repo link>  # clone the repository
+   cd repo                       # change directory to repository
+
+2. Ensure your application runs locally:
+
+    pip install -r requirements.txt
+    python fitbot_web.py
+
+3. Create Azure account and install Azure CLI
+
+4. Create a Web App on Azure
+    Open Azure CLI and log in:
+
+        az login
+
+    Create a resource group:
+
+        az group create --name your-resource-group --location your-region
+
+    Create a Web App:
+
+        az webapp up --resource-group your-resource-group --name your-app-name --sku F1
+
+5.  Configure Your Web App
+    Configure deployment from GitHub:
+
+        az webapp deployment source config --name your-app-name --resource-group your-resource-group --repo-url https://github.com/your-username/your-fitbot-repo.git --branch master --manual-integration
+
+    Configure application settings:
+
+        az webapp config appsettings set --name your-app-name --resource-group your-resource-group --settings REPLICATE_API_TOKEN=your-replicate-api-key
+
+6.  Deploy Your Application
+    Deploy your application to Azure:
+
+        az webapp deployment source sync --name your-app-name --resource-group your-resource-group
+
+7. Set Up Azure DevOps Account
+    Sign up for an Azure DevOps account: https://dev.azure.com/
+
+8. Create a New Project in Azure DevOps
+    Create a new project and repository on Azure DevOps.
+
+9.  Set Up CI/CD Pipelines in Azure DevOps
+    1. In Azure DevOps, go to "Pipelines" > "Builds" and create a new build pipeline.
+
+        a. Choose your source repository (GitHub) and configure the pipeline based on your project structure.
+        b. Define the build steps, including installing dependencies (pip install -r requirements.txt) and any other necessary steps.
+    
+    2. In Azure DevOps, go to "Pipelines" > "Releases" and create a new release pipeline.
+    
+        a. Choose the template that suits your deployment scenario (e.g., Azure App Service deployment).
+        b. Configure the stages, artifacts, and tasks in the release pipeline.
+        c. Set up deployment variables for environment-specific configurations.
+    
+    3. Link the build and release pipelines.
+
+10. Trigger a Build and Verify Deployment
+    Trigger a build by committing and pushing changes to your GitHub repository.
+
+    Verify the deployment in the Azure DevOps "Releases" tab.
